@@ -1,4 +1,5 @@
 import React from "react";
+import spotifyLogo from "../assets/img/Spotify_Full_Logo_RGB_Green.png";
 
 interface HeaderProps {
   onLogoClick: () => void;
@@ -19,7 +20,7 @@ export const Header: React.FC<HeaderProps> = ({ onLogoClick }) => (
       for
     </h2>
     <img
-      src="/src/assets/img/Spotify_Full_Logo_RGB_Green.png"
+      src={spotifyLogo}
       alt="Spotify Logo"
       className="w-44 mb-4"
     />
