@@ -14,7 +14,7 @@ For example, physical tiles may be printed with a song's name, artist and/or pub
 
 ## Development
 
-This project's code is in a work-in-progress state, it has several glitches and many opportunities for refactoring.
+This application was built with npm/11.0.0 and vite/5.4.8. This project's code is in a work-in-progress state, it has several glitches and many opportunities for refactoring.
 
 To install and start this React app locally, clone the repository and run:
 
@@ -23,7 +23,8 @@ npm install
 npm run start
 ```
 
-This application was built with npm/11.0.0 and vite/5.4.8. 
+To get the Spotify log-in to work, create a client in the [Spotify for Developers dashboard](https://developer.spotify.com)
+and fill in the Client ID in `app/data/config.ts`.
 
 Make sure to apply linting after making changes:
 
