@@ -15,9 +15,14 @@ export const ErrorView: React.FC<ErrorViewProps> = ({ onRetry }) => (
         Invalid QR Code
       </h2>
       <p className="text-gray-400 text-center mb-8 max-w-md">
-        The scanned QR code is not a valid Spotify track link. Please try
-        scanning a Spotify code.
+        The scanned QR code is not a valid Spotify track link. <br />
+        Please try scanning a Spotify song link code:
       </p>
+      <div className="bg-gray-900 p-1 mb-8 rounded">
+        <p className="font-light text-gray-300 text-center max-w-md">
+          https://open.spotify.com/track/...
+        </p>
+      </div>
     </div>
     <button
       onClick={onRetry}
