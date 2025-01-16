@@ -1,5 +1,5 @@
-import React from 'react';
-import {BlackSpotifyIcon} from "./icons/BlackSpotifyIcon.tsx";
+import React from "react";
+import { BlackSpotifyIcon } from "./icons/BlackSpotifyIcon.tsx";
 
 interface LoginButtonProps {
   href: string;

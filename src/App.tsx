@@ -1,29 +1,20 @@
-import { useState } from 'react';
-import { QrScanner } from '@yudiel/react-qr-scanner';
-import { Header } from './components/Header';
-import { ScanButton } from './components/ScanButton';
-import { ErrorView } from './components/ErrorView';
-import { PlayingView } from './components/PlayingView';
-import {LoginButton} from "./components/LoginButton.tsx";
-import { SPOTIFY_CLIENT_ID } from "./data/config"
-
-const generateRandomString = (length: number) => {
-  let text = '';
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-  for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
-}
+import { useState } from "react";
+import { QrScanner } from "@yudiel/react-qr-scanner";
+import { Header } from "./components/Header";
+import { ScanButton } from "./components/ScanButton";
+import { ErrorView } from "./components/ErrorView";
+import { PlayingView } from "./components/PlayingView";
+import { LoginButton } from "./components/LoginButton.tsx";
+import { generateRandomString } from "./util/functions.ts";
+import { SPOTIFY_CLIENT_ID } from "./data/config";
 
 function App() {
   const [isScanning, setIsScanning] = useState(false);
   const [scannedUrl, setScannedUrl] = useState<string | null>(null);
   const [isError, setIsError] = useState(false);
 
-  const queryParameters = new URLSearchParams(window.location.search)
-  const code = queryParameters.get("code")
+  const queryParameters = new URLSearchParams(window.location.search);
+  const code = queryParameters.get("code");
   const isLoggedIn = code !== null;
 
   const redirectSpotifyLogin = (): string => {
@@ -32,14 +23,17 @@ function App() {
       client_id: SPOTIFY_CLIENT_ID,
       scope: "streaming user-read-email user-read-private",
       redirect_uri: "http://localhost:5173/",
-      state: generateRandomString(16)
-    })
-    return 'https://accounts.spotify.com/authorize/?' + authQueryParameters.toString()
-  }
+      state: generateRandomString(16),
+    });
+    return (
+      "https://accounts.spotify.com/authorize/?" +
+      authQueryParameters.toString()
+    );
+  };
 
   const handleScan = (result: string) => {
-    if (result?.startsWith('https://open.spotify.com/')) {
-      console.log('Scanned Spotify URL:', result);
+    if (result?.startsWith("https://open.spotify.com/")) {
+      console.log("Scanned Spotify URL:", result);
       setScannedUrl(result);
       setIsScanning(false);
     } else {
@@ -80,20 +74,20 @@ function App() {
       {isScanning ? (
         <div className="w-full max-w-md rounded-lg overflow-hidden shadow-2xl shadow-[#1DB954]/20">
           <QrScanner
-            //onDecode={handleScan}
+            onDecode={handleScan}
             onError={handleError}
             scanDelay={500}
             hideCount
             audio={false}
-            constraints={{ 
-              facingMode: 'environment',
+            constraints={{
+              facingMode: "environment",
             }}
           />
         </div>
+      ) : isLoggedIn ? (
+        <ScanButton onClick={() => setIsScanning(true)} />
       ) : (
-        isLoggedIn
-            ? <ScanButton onClick={() => setIsScanning(true)} />
-            : <LoginButton href={redirectSpotifyLogin()} />
+        <LoginButton href={redirectSpotifyLogin()} />
       )}
     </div>
   );

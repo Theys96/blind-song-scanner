@@ -1,5 +1,5 @@
-import React from 'react';
-import { ErrorIcon } from './icons/ErrorIcon';
+import React from "react";
+import { ErrorIcon } from "./icons/ErrorIcon";
 
 interface ErrorViewProps {
   onRetry: () => void;
@@ -11,9 +11,12 @@ export const ErrorView: React.FC<ErrorViewProps> = ({ onRetry }) => (
       <div className="w-20 h-20 mb-6 rounded-full bg-red-500 flex items-center justify-center">
         <ErrorIcon className="w-12 h-12 text-white" />
       </div>
-      <h2 className="text-white text-2xl font-bold mb-4 text-center">Invalid QR Code</h2>
+      <h2 className="text-white text-2xl font-bold mb-4 text-center">
+        Invalid QR Code
+      </h2>
       <p className="text-gray-400 text-center mb-8 max-w-md">
-        The scanned QR code is not a valid Spotify track link. Please try scanning a Spotify code.
+        The scanned QR code is not a valid Spotify track link. Please try
+        scanning a Spotify code.
       </p>
     </div>
     <button

@@ -1,15 +1,18 @@
-import React from 'react';
-import { Equalizer } from './Equalizer';
+import React from "react";
+import { Equalizer } from "./Equalizer";
 
 interface PlayingViewProps {
   onReset: () => void;
   onScanAgain: () => void;
 }
 
-export const PlayingView: React.FC<PlayingViewProps> = ({ onReset, onScanAgain }) => (
+export const PlayingView: React.FC<PlayingViewProps> = ({
+  onReset,
+  onScanAgain,
+}) => (
   <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
     <div className="flex flex-col items-center relative">
-      <img 
+      <img
         src="/src/assets/img/Spotify_Full_Logo_RGB_Green.png"
         alt="Spotify Logo"
         className="w-32 mb-4 cursor-pointer hover:scale-105 transition-transform"

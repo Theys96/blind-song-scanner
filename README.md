@@ -10,6 +10,12 @@ npm install
 npm run start
 ```
 
+Make sure to apply linting after making changes:
+
+```
+npm run lint:fix
+```
+
 ## Demo
 
 An earlier version can be found here: https://classy-narwhal-f1da6f.netlify.app/

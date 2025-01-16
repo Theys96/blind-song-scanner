@@ -1,5 +1,5 @@
-import React from 'react';
-import { MusicIcon } from './icons/MusicIcon';
+import React from "react";
+import { MusicIcon } from "./icons/MusicIcon";
 
 interface ScanButtonProps {
   onClick: () => void;

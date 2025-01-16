@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
   @keyframes equalizer {
     0% {
@@ -21,7 +21,7 @@ export const Equalizer: React.FC = () => (
         className="w-3 bg-gradient-to-t from-[#1DB954] to-[#1ed760] rounded-full transform-gpu"
         style={{
           height: `${Math.max(15, Math.random() * 100)}%`,
-          animation: `equalizer 1s ease-in-out ${i * 0.1}s infinite alternate`
+          animation: `equalizer 1s ease-in-out ${i * 0.1}s infinite alternate`,
         }}
       />
     ))}

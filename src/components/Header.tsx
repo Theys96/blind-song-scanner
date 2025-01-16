@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface HeaderProps {
   onLogoClick: () => void;
@@ -18,11 +18,13 @@ export const Header: React.FC<HeaderProps> = ({ onLogoClick }) => (
     >
       for
     </h2>
-    <img 
+    <img
       src="/src/assets/img/Spotify_Full_Logo_RGB_Green.png"
       alt="Spotify Logo"
       className="w-44 mb-4"
     />
-    <p className="text-gray-400 mt-2 text-center">Scan Spotify song link QR codes instantly.</p>
+    <p className="text-gray-400 mt-2 text-center">
+      Scan Spotify song link QR codes instantly.
+    </p>
   </div>
 );
