@@ -1,2 +1,2 @@
-export const SPOTIFY_CLIENT_ID = "9a65a6d51ea84b68ae03bf38202b1754";
+export const SPOTIFY_CLIENT_ID = "c83265d4ce9040388f64b9485cf06899";
 export const REDIRECT_URL = "https://blind-song-scanner.netlify.app/";
