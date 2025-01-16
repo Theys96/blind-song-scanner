@@ -41,7 +41,7 @@ function App() {
   useEffect(() => {
     if (accessToken !== null) {
       const spotifyPlayer = new window.Spotify.Player({
-        name: "React Spotify Player",
+        name: "Blind Song Scanner",
         getOAuthToken: async (callback: (token: string) => void) => {
           callback(accessToken);
         },
