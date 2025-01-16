@@ -36,11 +36,8 @@ npm run lint:fix
 
 ## Screenshots
 
-<img align="left" src="screenshots/log_in_screen.jpeg" height="500px" alt="Log in screen" />
-<img align="left" src="screenshots/start_screen.jpeg" height="500px" alt="Start screen" />
-<img align="left" src="screenshots/scanning.jpeg" height="500px" alt="Scanning" />
-<br />
-<br />
-
-<img align="left" src="screenshots/playing_track.jpeg" height="500px" alt="Playing a track" />
-<img align="left" src="screenshots/invalid_code.jpeg" height="500px" alt="Invalid QR code" />
+<img align="left" src="screenshots/log_in_screen.jpeg" height="700px" alt="Log in screen" />
+<img align="left" src="screenshots/scanning.jpeg" height="700px" alt="Scanning" />
+<img align="left" src="screenshots/start_screen.jpeg" height="700px" alt="Start screen" />
+<img align="left" src="screenshots/playing_track.jpeg" height="700px" alt="Playing a track" />
+<img align="left" src="screenshots/invalid_code.jpeg" height="700px" alt="Invalid QR code" />
