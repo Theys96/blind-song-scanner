@@ -12,6 +12,7 @@ For example, physical tiles may be printed with a song's name, artist and/or pub
 
 -------
 
+> If you happen to know more about whether the design of this app complies with or violates the [Spotify Design & Branding Guidelines](https://developer.spotify.com/documentation/design), please let me know!
 ## Development
 
 This application was built with npm/11.0.0 and vite/5.4.8. 
@@ -38,6 +39,6 @@ npm run lint:fix
 <img align="left" src="screenshots/log_in_screen.jpeg" height="500px" alt="Log in screen" />
 <img align="left" src="screenshots/start_screen.jpeg" height="500px" alt="Start screen" />
 <img align="left" src="screenshots/scanning.jpeg" height="500px" alt="Scanning" /><br />
-
+<br />
 <img align="left" src="screenshots/playing_track.jpeg" height="500px" alt="Playing a track" />
 <img align="left" src="screenshots/invalid_code.jpeg" height="500px" alt="Invalid QR code" />
