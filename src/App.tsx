@@ -5,7 +5,11 @@ import { ScanButton } from "./components/ScanButton";
 import { ErrorView } from "./components/ErrorView";
 import { PlayingView } from "./components/PlayingView";
 import { LoginButton } from "./components/LoginButton.tsx";
-import { generateRandomString } from "./util/functions.ts";
+import {
+  base64encode,
+  generateRandomString,
+  sha256,
+} from "./util/functions.ts";
 import { SPOTIFY_CLIENT_ID, REDIRECT_URL } from "./data/config";
 import { getSpotifyAccessToken } from "./util/getSpotifyAccessToken.ts";
 
@@ -13,6 +17,7 @@ function App() {
   const [isScanning, setIsScanning] = useState(false);
   const [scannedUrl, setScannedUrl] = useState<string | null>(null);
   const [isError, setIsError] = useState(false);
+  const [authorizeUrl, setAuthorizeUrl] = useState<string>("#");
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [spotifyPlayer, setSpotifyPlayer] = useState<Spotify.Player | null>(
     null,
@@ -21,10 +26,10 @@ function App() {
 
   const queryParameters = new URLSearchParams(window.location.search);
   const code = queryParameters.get("code");
-  const isLoggedIn = code !== null;
 
   useEffect(() => {
     if (code) {
+      window.history.replaceState({}, document.title, "/");
       getSpotifyAccessToken(code).then((newToken) => {
         if (newToken) {
           setAccessToken(newToken);
@@ -96,19 +101,31 @@ function App() {
     }
   }, [spotifyPlayer, scannedUrl]);
 
-  const redirectSpotifyLogin = (): string => {
+  const redirectSpotifyLogin = async (): Promise<string> => {
+    let codeVerifier = window.localStorage.getItem("spotifyCodeVerifier");
+
+    if (codeVerifier === null || codeVerifier.length === 0) {
+      codeVerifier = generateRandomString(64);
+      window.localStorage.setItem("spotifyCodeVerifier", codeVerifier);
+    }
+    const hashed = await sha256(codeVerifier);
+    const codeChallenge = base64encode(hashed);
+
     const authQueryParameters = new URLSearchParams({
       response_type: "code",
       client_id: SPOTIFY_CLIENT_ID,
       scope: "streaming user-read-email user-read-private",
       redirect_uri: REDIRECT_URL,
-      state: generateRandomString(16),
+      code_challenge_method: "S256",
+      code_challenge: codeChallenge,
     });
     return (
       "https://accounts.spotify.com/authorize/?" +
       authQueryParameters.toString()
     );
   };
+
+  redirectSpotifyLogin().then(setAuthorizeUrl);
 
   const handleScan = (result: string) => {
     if (result?.startsWith("https://open.spotify.com/")) {
@@ -166,10 +183,10 @@ function App() {
             }}
           />
         </div>
-      ) : isLoggedIn ? (
+      ) : deviceId !== null ? (
         <ScanButton onClick={() => setIsScanning(true)} />
       ) : (
-        <LoginButton href={redirectSpotifyLogin()} />
+        <LoginButton href={authorizeUrl} />
       )}
     </div>
   );

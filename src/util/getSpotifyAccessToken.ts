@@ -1,13 +1,15 @@
-import {
-  SPOTIFY_CLIENT_ID,
-  REDIRECT_URL,
-  SPOTIFY_AUTH_TOKEN,
-} from "../data/config.ts";
+import { SPOTIFY_CLIENT_ID, REDIRECT_URL } from "../data/config.ts";
 
 export async function getSpotifyAccessToken(
   authorizationCode: string,
 ): Promise<string | null> {
   const tokenEndpoint = "https://accounts.spotify.com/api/token";
+  const codeVerifier = window.localStorage.getItem("spotifyCodeVerifier");
+
+  if (!codeVerifier) {
+    console.log("No code verifier in getSpotifyAccessToken");
+    return null;
+  }
 
   // Build the body of the request
   const body = new URLSearchParams({
@@ -15,6 +17,7 @@ export async function getSpotifyAccessToken(
     code: authorizationCode,
     redirect_uri: REDIRECT_URL,
     client_id: SPOTIFY_CLIENT_ID,
+    code_verifier: codeVerifier,
   });
 
   try {
@@ -22,7 +25,6 @@ export async function getSpotifyAccessToken(
       method: "POST",
       headers: {
         "content-type": "application/x-www-form-urlencoded",
-        Authorization: "Basic " + SPOTIFY_AUTH_TOKEN,
       },
       body: body.toString(),
     });
