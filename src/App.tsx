@@ -80,7 +80,7 @@ function App() {
       {isScanning ? (
         <div className="w-full max-w-md rounded-lg overflow-hidden shadow-2xl shadow-[#1DB954]/20">
           <QrScanner
-            onDecode={handleScan}
+            //onDecode={handleScan}
             onError={handleError}
             scanDelay={500}
             hideCount
