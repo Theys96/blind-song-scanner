@@ -10,8 +10,8 @@ npm install
 npm run start
 ```
 
-![screenshots/log_in_screen.png](Log in screen)
-![screenshots/start_screen.png](Start screen)
-![screenshots/scanning.png](Scanning)
-![screenshots/playing_track.png](Playing a track)
-![screenshots/invalid_code.png]((Invalid QR code))
+![Log in screen](screenshots/log_in_screen.png)
+![Start screen](screenshots/start_screen.png)
+![Scanning](screenshots/scanning.png)
+![Playing a track](screenshots/playing_track.png)
+![Invalid QR code](screenshots/invalid_code.png)
