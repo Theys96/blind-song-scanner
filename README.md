@@ -2,7 +2,7 @@
 
 > **Demo:** [blind-song-scanner.netlify.app](https://blind-song-scanner.netlify.app)
 
-QR code scanner web application for playing Spotify songs blindly.
+QR code scanner web application for playing Spotify songs blindly:
 - Log in with a Spotify Premium account.
 - Scan a QR code with a Spotify song URL (e.g. [https://open.spotify.com/track/...](https://open.spotify.com/track/4PTG3Z6ehGkBFwjybzWkR8?si=8c83c6d0e3f5404e)).
 - The app immediately starts playing the song without revealing any details about it.
@@ -14,7 +14,8 @@ For example, physical tiles may be printed with a song's name, artist and/or pub
 
 ## Development
 
-This application was built with npm/11.0.0 and vite/5.4.8. This project's code is in a work-in-progress state, it has several glitches and many opportunities for refactoring.
+This application was built with npm/11.0.0 and vite/5.4.8. 
+The project's code is in a work-in-progress state, it has several glitches and many opportunities for refactoring.
 
 To install and start this React app locally, clone the repository and run:
 
