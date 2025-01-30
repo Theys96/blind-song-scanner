@@ -1,6 +1,6 @@
 # Blind Song Scanner
 
-> **Demo:** [play.blindsongscanner.com](https://play.blindsongscanner.com/)
+> **Live on:** [play.blindsongscanner.com](https://play.blindsongscanner.com/)
 
 QR code scanner web application for playing Spotify songs blindly:
 - Log in with a Spotify Premium account.
