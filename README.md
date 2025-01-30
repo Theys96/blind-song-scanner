@@ -9,6 +9,7 @@ QR code scanner web application for playing Spotify songs blindly:
 
 This app was designed to enable a range of musical party games. 
 For example, physical tiles may be printed with a song's name, artist and/or publication year on the other side. 
+To create such tiles, see [https://github.com/Theys96/blind-song-scanner-generator](https://github.com/Theys96/blind-song-scanner-generator).
 
 -------
 
