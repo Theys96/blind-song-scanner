@@ -1,18 +1,20 @@
 # Blind Song Scanner
 
-> **Demo:** [blind-song-scanner.netlify.app](https://blind-song-scanner.netlify.app)
+> **Live on:** [play.blindsongscanner.com](https://play.blindsongscanner.com/)
 
 QR code scanner web application for playing Spotify songs blindly:
 - Log in with a Spotify Premium account.
-- Scan a QR code with a Spotify song URL (e.g. [https://open.spotify.com/track/...](https://open.spotify.com/track/4PTG3Z6ehGkBFwjybzWkR8?si=8c83c6d0e3f5404e)).
+- Scan a QR code with a Spotify song URL (i.e. [https://open.spotify.com/track/...](https://open.spotify.com/track/4PTG3Z6ehGkBFwjybzWkR8?si=8c83c6d0e3f5404e)).
 - The app immediately starts playing the song without revealing any details about it.
 
 This app was designed to enable a range of musical party games. 
 For example, physical tiles may be printed with a song's name, artist and/or publication year on the other side. 
+To create such tiles, see [https://github.com/Theys96/blind-song-scanner-generator](https://github.com/Theys96/blind-song-scanner-generator).
 
 -------
 
 > If you happen to know more about whether the design of this app complies with or violates the [Spotify Design & Branding Guidelines](https://developer.spotify.com/documentation/design), please let me know!
+
 ## Development
 
 This application was built with npm/11.0.0 and vite/5.4.8. 

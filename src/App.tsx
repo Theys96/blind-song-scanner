@@ -186,7 +186,12 @@ function App() {
       ) : deviceId !== null ? (
         <ScanButton onClick={() => setIsScanning(true)} />
       ) : (
-        <LoginButton href={authorizeUrl} />
+        <>
+          <LoginButton href={authorizeUrl} />
+          <a className="text-[#1DB954] font-bold hover:text-[#1ed760] text-center mt-16" href="https://www.blindsongscanner.com">
+            About
+          </a>
+        </>
       )}
     </div>
   );
