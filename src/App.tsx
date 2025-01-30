@@ -114,7 +114,7 @@ function App() {
     const authQueryParameters = new URLSearchParams({
       response_type: "code",
       client_id: SPOTIFY_CLIENT_ID,
-      scope: "streaming user-read-email user-read-private",
+      scope: "streaming",
       redirect_uri: REDIRECT_URL,
       code_challenge_method: "S256",
       code_challenge: codeChallenge,
