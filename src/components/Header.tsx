@@ -19,11 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ onLogoClick }) => (
     >
       for
     </h2>
-    <img
-      src={spotifyLogo}
-      alt="Spotify Logo"
-      className="w-44 mb-4"
-    />
+    <img src={spotifyLogo} alt="Spotify Logo" className="w-44 mb-4" />
     <p className="text-gray-400 mt-2 text-center">
       Scan a Spotify song link QR code. Play the song without revealing it.
     </p>
