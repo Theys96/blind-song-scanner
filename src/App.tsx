@@ -1,12 +1,16 @@
 import { Header } from "./components/Header.tsx";
 import { SpotifyLogin } from "./components/SpotifyLogin.tsx";
-import { checkSpotifyAccessToken } from "./util/checkSpotifyAccessToken.ts";
+import {
+  checkSpotifyAccessToken,
+  refreshToken,
+} from "./util/checkSpotifyAccessToken.ts";
 import { useEffect, useState } from "react";
 import Main from "./components/Main.tsx";
 
 function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [expired, setExpired] = useState<boolean>(false);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [refreshTimeout, setRefreshTimeout] = useState<number | null>(null);
 
   const queryParameters = new URLSearchParams(window.location.search);
   const newCode = queryParameters.get("code");
@@ -17,34 +21,39 @@ function App() {
 
   // useEffect to make sure this happens exactly once
   useEffect(() => {
+    const reloadTokens = () => {
+      const expiresAt = window.localStorage.getItem(
+        "spotifyAccessTokenExpiresAt",
+      );
+      const accessToken = window.localStorage.getItem("spotifyAccessToken");
+      setAccessToken(accessToken);
+      console.log("Access token set to " + accessToken);
+      if (expiresAt) {
+        const timeoutMs = parseInt(expiresAt) - Date.now();
+        console.log(timeoutMs);
+        if (refreshTimeout) clearTimeout(refreshTimeout);
+        const newTimeout = setTimeout(() => {
+          refreshToken().then(reloadTokens);
+        }, timeoutMs);
+        console.log("Set a timer for " + timeoutMs / 1000 + "s");
+        setRefreshTimeout(newTimeout);
+      }
+    };
     checkSpotifyAccessToken().then(() => {
+      reloadTokens();
       setIsLoading(false);
     });
-  });
-
-  const accessToken = window.localStorage.getItem("spotifyAccessToken");
-  const accessTokenExpiresAt = window.localStorage.getItem(
-    "spotifyAccessTokenExpiresAt",
-  );
-
-  if (accessTokenExpiresAt) {
-    setTimeout(
-      () => {
-        window.localStorage.removeItem("spotifyAccessToken");
-        window.localStorage.removeItem("spotifyAccessTokenExpiresAt");
-        setExpired(true);
-      },
-      Math.max(0, parseInt(accessTokenExpiresAt) - Date.now()),
-    );
-  }
+  }, []);
 
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
-      <Header onLogoClick={() => {}} />
+      <Header
+        onLogoClick={() => {
+          // TODO: Implement
+        }}
+      />
       {!isLoading && !accessToken ? <SpotifyLogin /> : null}
-      {accessToken && accessTokenExpiresAt ? (
-        <Main accessToken={accessToken} expired={expired} />
-      ) : null}
+      {accessToken ? <Main accessToken={accessToken} expired={false} /> : null}
     </div>
   );
 }

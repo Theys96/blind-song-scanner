@@ -12,15 +12,36 @@ export async function checkSpotifyAccessToken(): Promise<void> {
     return;
   }
 
-  // Build the body of the request
-  const body = new URLSearchParams({
-    grant_type: "authorization_code",
-    code: spotifyCode,
-    redirect_uri: REDIRECT_URL,
-    client_id: SPOTIFY_CLIENT_ID,
-    code_verifier: spotifyCodeVerifier,
-  });
+  return fetchToken(
+    new URLSearchParams({
+      grant_type: "authorization_code",
+      code: spotifyCode,
+      redirect_uri: REDIRECT_URL,
+      client_id: SPOTIFY_CLIENT_ID,
+      code_verifier: spotifyCodeVerifier,
+    }),
+  );
+}
 
+export async function refreshToken(): Promise<void> {
+  const spotifyRefreshToken = window.localStorage.getItem(
+    "spotifyRefreshToken",
+  );
+  if (!spotifyRefreshToken) {
+    return;
+  }
+
+  return fetchToken(
+    new URLSearchParams({
+      grant_type: "refresh_token",
+      refresh_token: spotifyRefreshToken,
+      redirect_uri: REDIRECT_URL,
+      client_id: SPOTIFY_CLIENT_ID,
+    }),
+  );
+}
+
+async function fetchToken(body: URLSearchParams): Promise<void> {
   try {
     const response = await fetch(TOKEN_ENDPOINT, {
       method: "POST",
@@ -44,11 +65,9 @@ export async function checkSpotifyAccessToken(): Promise<void> {
       window.localStorage.setItem("spotifyAccessToken", data.access_token);
       window.localStorage.setItem(
         "spotifyAccessTokenExpiresAt",
-        String(parseInt(data.expires_in) * 1000 + Date.now()),
+        String(parseInt(String(data.expires_in / 60)) * 1000 + Date.now()),
       );
-      setTimeout(() => {
-        window.location.reload();
-      }, 200);
+      window.localStorage.setItem("spotifyRefreshToken", data.refresh_token);
     }
   } catch (error) {
     console.error("Error fetching Spotify access token:", error);

@@ -18,6 +18,7 @@ function Main({ accessToken, expired }: MainProps) {
     null,
   );
 
+  // TODO: This does not repeat when the access token changes
   window.onSpotifyWebPlaybackSDKReady = () => {
     const spotifyPlayer = new window.Spotify.Player({
       name: "Blind Song Scanner",
