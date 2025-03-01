@@ -17,8 +17,8 @@ function Main({ accessToken, expired }: MainProps) {
   const [spotifyPlayer, setSpotifyPlayer] = useState<Spotify.Player | null>(
     null,
   );
+  const [isConnected, setIsConnected] = useState(false);
 
-  // TODO: This does not repeat when the access token changes
   window.onSpotifyWebPlaybackSDKReady = () => {
     const spotifyPlayer = new window.Spotify.Player({
       name: "Blind Song Scanner",
@@ -53,12 +53,18 @@ function Main({ accessToken, expired }: MainProps) {
       console.error("Playback error:", message);
     });
 
-    spotifyPlayer.connect().then(() => {
-      console.log(spotifyPlayer);
-    });
-
     setSpotifyPlayer(spotifyPlayer);
   };
+
+  useEffect(() => {
+    if (spotifyPlayer && accessToken && !isConnected) {
+      console.log("Connecting");
+      spotifyPlayer.connect().then(() => {
+        setIsConnected(true);
+        console.log(spotifyPlayer);
+      });
+    }
+  }, [accessToken, spotifyPlayer, isConnected]);
 
   useEffect(() => {
     console.log(spotifyPlayer);
