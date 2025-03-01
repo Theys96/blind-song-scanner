@@ -11,6 +11,11 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshTimeout, setRefreshTimeout] = useState<number | null>(null);
+  const [isSpotifySDKReady, setIsSpotifySDKReady] = useState<boolean>(false);
+
+  window.onSpotifyWebPlaybackSDKReady = () => {
+    setIsSpotifySDKReady(true);
+  };
 
   const queryParameters = new URLSearchParams(window.location.search);
   const newCode = queryParameters.get("code");
@@ -53,7 +58,7 @@ function App() {
         }}
       />
       {!isLoading && !accessToken ? <SpotifyLogin /> : null}
-      {accessToken ? <Main accessToken={accessToken} expired={false} /> : null}
+      {(accessToken && isSpotifySDKReady) ? <Main accessToken={accessToken} expired={false} /> : null}
     </div>
   );
 }

@@ -68,8 +68,14 @@ async function fetchToken(body: URLSearchParams): Promise<void> {
         String(parseInt(String(data.expires_in / 60)) * 1000 + Date.now()),
       );
       window.localStorage.setItem("spotifyRefreshToken", data.refresh_token);
+    } else {
+      throw new Error("Failed to retrieve access token");
     }
   } catch (error) {
+    window.localStorage.removeItem("spotifyAccessToken");
+    window.localStorage.removeItem(
+      "spotifyAccessTokenExpiresAt");
+    window.localStorage.removeItem("spotifyRefreshToken");
     console.error("Error fetching Spotify access token:", error);
   }
 }
