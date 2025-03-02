@@ -6,7 +6,7 @@ interface ErrorViewProps {
 }
 
 export const ErrorView: React.FC<ErrorViewProps> = ({ onRetry }) => (
-  <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
+  <div className="bg-black flex flex-col items-center justify-center p-4">
     <div className="flex flex-col items-center">
       <div className="w-20 h-20 mb-6 rounded-full bg-red-500 flex items-center justify-center">
         <ErrorIcon className="w-12 h-12 text-white" />
