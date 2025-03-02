@@ -118,6 +118,9 @@ function Main({ accessToken, resetTrigger, isActive }: MainProps) {
     setScannedUrl(null);
     setIsError(false);
     setIsScanning(false);
+    if (spotifyPlayer) {
+      spotifyPlayer.pause();
+    }
   };
 
   if (isError) {
