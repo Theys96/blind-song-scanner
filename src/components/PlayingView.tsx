@@ -1,5 +1,6 @@
 import React from "react";
 import { Equalizer } from "./Equalizer";
+import spotifyLogo from "../assets/img/Spotify_Full_Logo_RGB_Green.png";
 
 interface PlayingViewProps {
   onReset: () => void;
@@ -13,7 +14,7 @@ export const PlayingView: React.FC<PlayingViewProps> = ({
   <div className="bg-black flex flex-col items-center justify-center p-4">
     <div className="flex flex-col items-center relative">
       <img
-        src="/src/assets/img/Spotify_Full_Logo_RGB_Green.png"
+        src={spotifyLogo}
         alt="Spotify Logo"
         className="w-32 mb-4 cursor-pointer hover:scale-105 transition-transform"
         onClick={onReset}

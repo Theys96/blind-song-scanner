@@ -1,12 +1,8 @@
 import { Header } from "./components/Header.tsx";
 import { SpotifyLogin } from "./components/SpotifyLogin.tsx";
-import {
-  checkSpotifyAccessToken,
-  refreshToken,
-} from "./util/checkSpotifyAccessToken.ts";
+import { checkSpotifyAccessToken, refreshToken } from "./util/spotify.ts";
 import { useEffect, useState } from "react";
 import Main from "./components/Main.tsx";
-import {Equalizer} from "./components/Equalizer.tsx";
 
 function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -15,10 +11,6 @@ function App() {
   const [isSpotifySDKReady, setIsSpotifySDKReady] = useState<boolean>(false);
   const [resetTrigger, setResetTrigger] = useState<number>(0);
   const [showSmallHeader, setShowSmallHeader] = useState(false);
-
-  window.onSpotifyWebPlaybackSDKReady = () => {
-    setIsSpotifySDKReady(true);
-  };
 
   const queryParameters = new URLSearchParams(window.location.search);
   const newCode = queryParameters.get("code");
@@ -29,6 +21,14 @@ function App() {
 
   // useEffect to make sure this happens exactly once
   useEffect(() => {
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      setIsSpotifySDKReady(true);
+    };
+    const script = document.createElement("script");
+    script.src = "https://sdk.scdn.co/spotify-player.js";
+    script.async = true;
+    document.body.appendChild(script);
+
     const reloadTokens = () => {
       const expiresAt = window.localStorage.getItem(
         "spotifyAccessTokenExpiresAt",
@@ -51,24 +51,26 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
-      <Header
-        onLogoClick={() => {
-          setResetTrigger((prev) => prev + 1);
-        }}
-        small={showSmallHeader}
-      />
-      {!isLoading && !accessToken ? <SpotifyLogin /> : null}
-      {accessToken && isSpotifySDKReady ? (
-        <Main
-          accessToken={accessToken}
-          resetTrigger={resetTrigger}
-          isActive={(active) => {
-            setShowSmallHeader(active);
+    <>
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
+        <Header
+          onLogoClick={() => {
+            setResetTrigger((prev) => prev + 1);
           }}
+          small={showSmallHeader}
         />
-      ) : null}
-    </div>
+        {!isLoading && !accessToken ? <SpotifyLogin /> : null}
+        {accessToken && isSpotifySDKReady ? (
+          <Main
+            accessToken={accessToken}
+            resetTrigger={resetTrigger}
+            isActive={(active) => {
+              setShowSmallHeader(active);
+            }}
+          />
+        ) : null}
+      </div>
+    </>
   );
 }
 
