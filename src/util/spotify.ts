@@ -73,8 +73,7 @@ async function fetchToken(body: URLSearchParams): Promise<void> {
     }
   } catch (error) {
     window.localStorage.removeItem("spotifyAccessToken");
-    window.localStorage.removeItem(
-      "spotifyAccessTokenExpiresAt");
+    window.localStorage.removeItem("spotifyAccessTokenExpiresAt");
     window.localStorage.removeItem("spotifyRefreshToken");
     console.error("Error fetching Spotify access token:", error);
   }
