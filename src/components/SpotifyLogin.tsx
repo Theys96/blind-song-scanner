@@ -23,7 +23,7 @@ export const SpotifyLogin: React.FC = () => {
     const authQueryParameters = new URLSearchParams({
       response_type: "code",
       client_id: SPOTIFY_CLIENT_ID,
-      scope: "streaming",
+      scope: "streaming web-playback",
       redirect_uri: REDIRECT_URL,
       code_challenge_method: "S256",
       code_challenge: codeChallenge,
