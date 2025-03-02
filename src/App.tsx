@@ -6,12 +6,15 @@ import {
 } from "./util/checkSpotifyAccessToken.ts";
 import { useEffect, useState } from "react";
 import Main from "./components/Main.tsx";
+import {Equalizer} from "./components/Equalizer.tsx";
 
 function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshTimeout, setRefreshTimeout] = useState<number | null>(null);
   const [isSpotifySDKReady, setIsSpotifySDKReady] = useState<boolean>(false);
+  const [resetTrigger, setResetTrigger] = useState<number>(0);
+  const [showSmallHeader, setShowSmallHeader] = useState(false);
 
   window.onSpotifyWebPlaybackSDKReady = () => {
     setIsSpotifySDKReady(true);
@@ -32,15 +35,12 @@ function App() {
       );
       const accessToken = window.localStorage.getItem("spotifyAccessToken");
       setAccessToken(accessToken);
-      console.log("Access token set to " + accessToken);
       if (expiresAt) {
         const timeoutMs = parseInt(expiresAt) - Date.now();
-        console.log(timeoutMs);
         if (refreshTimeout) clearTimeout(refreshTimeout);
         const newTimeout = setTimeout(() => {
           refreshToken().then(reloadTokens);
         }, timeoutMs);
-        console.log("Set a timer for " + timeoutMs / 1000 + "s");
         setRefreshTimeout(newTimeout);
       }
     };
@@ -54,11 +54,20 @@ function App() {
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
       <Header
         onLogoClick={() => {
-          // TODO: Implement
+          setResetTrigger((prev) => prev + 1);
         }}
+        small={showSmallHeader}
       />
       {!isLoading && !accessToken ? <SpotifyLogin /> : null}
-      {(accessToken && isSpotifySDKReady) ? <Main accessToken={accessToken} expired={false} /> : null}
+      {accessToken && isSpotifySDKReady ? (
+        <Main
+          accessToken={accessToken}
+          resetTrigger={resetTrigger}
+          isActive={(active) => {
+            setShowSmallHeader(active);
+          }}
+        />
+      ) : null}
     </div>
   );
 }

@@ -3,13 +3,15 @@ import { ScanButton } from "./ScanButton.tsx";
 import { PlayingView } from "./PlayingView.tsx";
 import { ErrorView } from "./ErrorView.tsx";
 import { QrScanner } from "@yudiel/react-qr-scanner";
+import { LoadingIcon } from "./icons/LoadingIcon.tsx";
 
 interface MainProps {
   accessToken: string;
-  expired: boolean;
+  resetTrigger: number;
+  isActive: (active: boolean) => void;
 }
 
-function Main({ accessToken, expired }: MainProps) {
+function Main({ accessToken, resetTrigger, isActive }: MainProps) {
   const [isScanning, setIsScanning] = useState(false);
   const [scannedUrl, setScannedUrl] = useState<string | null>(null);
   const [isError, setIsError] = useState(false);
@@ -17,6 +19,20 @@ function Main({ accessToken, expired }: MainProps) {
   const [spotifyPlayer, setSpotifyPlayer] = useState<Spotify.Player | null>(
     null,
   );
+
+  useEffect(() => {
+    if (isScanning || isError || scannedUrl) {
+      isActive(true);
+    } else {
+      isActive(false);
+    }
+  }, [isScanning, isError, scannedUrl]);
+
+  useEffect(() => {
+    if (resetTrigger > 0) {
+      resetToStart();
+    }
+  }, [resetTrigger]);
 
   useEffect(() => {
     const spotifyPlayer = new window.Spotify.Player({
@@ -28,7 +44,6 @@ function Main({ accessToken, expired }: MainProps) {
     });
 
     spotifyPlayer.addListener("ready", ({ device_id }) => {
-      console.log("Ready with Device ID:", device_id);
       setDeviceId(device_id);
     });
 
@@ -52,20 +67,12 @@ function Main({ accessToken, expired }: MainProps) {
       console.error("Playback error:", message);
     });
 
-    console.log("Created Spotify player, will now connect")
-
-    spotifyPlayer.connect().then(() => {
-      console.log(spotifyPlayer);
-    });
+    spotifyPlayer.connect().then(() => {});
 
     setSpotifyPlayer(spotifyPlayer);
   }, []);
 
   useEffect(() => {
-    console.log(spotifyPlayer);
-    console.log(scannedUrl);
-    console.log(deviceId);
-    console.log(accessToken);
     if (spotifyPlayer && scannedUrl && deviceId && accessToken) {
       const spotifyUri = scannedUrl
         .replace("https://open.spotify.com/track/", "spotify:track:")
@@ -84,7 +91,6 @@ function Main({ accessToken, expired }: MainProps) {
 
   const handleScan = (result: string) => {
     if (result?.startsWith("https://open.spotify.com/")) {
-      console.log("Scanned Spotify URL:", result);
       setScannedUrl(result);
       setIsScanning(false);
     } else {
@@ -124,27 +130,20 @@ function Main({ accessToken, expired }: MainProps) {
 
   return isScanning ? (
     <div className="w-full max-w-md rounded-lg overflow-hidden shadow-2xl shadow-[#1DB954]/20">
-      {expired ? (
-        <p className="text-[#1DB954] font-bold hover:text-[#1ed760] text-center mt-16">
-          Your session with Spotify has expired. Please refresh to log in again.
-        </p>
-      ) : (
-        <QrScanner
-          onDecode={handleScan}
-          onError={handleError}
-          scanDelay={500}
-          hideCount
-          audio={false}
-          constraints={{
-            facingMode: "environment",
-          }}
-        />
-      )}
+      <QrScanner
+        onDecode={handleScan}
+        onError={handleError}
+        scanDelay={500}
+        hideCount
+        audio={false}
+        constraints={{
+          facingMode: "environment",
+        }}
+      />
     </div>
   ) : deviceId !== null ? (
-    <ScanButton onClick={() => setIsScanning(true)} />
-  ) : (
     <>
+      <ScanButton onClick={() => setIsScanning(true)} />
       <a
         className="text-[#1DB954] font-bold hover:text-[#1ed760] text-center mt-16"
         href="https://www.blindsongscanner.com"
@@ -152,6 +151,8 @@ function Main({ accessToken, expired }: MainProps) {
         About
       </a>
     </>
+  ) : (
+    <LoadingIcon />
   );
 }
 
