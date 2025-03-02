@@ -65,7 +65,7 @@ async function fetchToken(body: URLSearchParams): Promise<void> {
       window.localStorage.setItem("spotifyAccessToken", data.access_token);
       window.localStorage.setItem(
         "spotifyAccessTokenExpiresAt",
-        String(parseInt(String(data.expires_in / 60)) * 1000 + Date.now()),
+        String(parseInt(String(data.expires_in)) * 1000 + Date.now()),
       );
       window.localStorage.setItem("spotifyRefreshToken", data.refresh_token);
     } else {
