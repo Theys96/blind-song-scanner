@@ -7,7 +7,6 @@ QR code scanner web application for playing Spotify songs blindly:
 - Scan a QR code with a Spotify song URL (i.e. [https://open.spotify.com/track/...](https://open.spotify.com/track/4PTG3Z6ehGkBFwjybzWkR8?si=8c83c6d0e3f5404e)).
 - The app immediately starts playing the song without revealing any details about it.
 
-This app was designed to enable a range of musical party games. 
 For example, physical tiles may be printed with a song's name, artist and/or publication year on the other side. 
 To create such tiles, see [https://github.com/Theys96/blind-song-scanner-generator](https://github.com/Theys96/blind-song-scanner-generator).
 
