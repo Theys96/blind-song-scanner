@@ -10,7 +10,7 @@ export const PlayingView: React.FC<PlayingViewProps> = ({
   onReset,
   onScanAgain,
 }) => (
-  <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
+  <div className="bg-black flex flex-col items-center justify-center p-4">
     <div className="flex flex-col items-center relative">
       <img
         src="/src/assets/img/Spotify_Full_Logo_RGB_Green.png"
