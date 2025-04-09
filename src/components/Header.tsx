@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
         <p className="text-gray-400 mt-2 text-center">
           Scan a Spotify song link QR code. Play the song without revealing it.
         </p>
-        {loggedIn && (
+        {!loggedIn && (
           <p className="text-orange-500 w-[500px] mt-2 text-center">
             Please note that this is a demo product which can only be used by
             registered demo Spotify users, or by hosting the application with
