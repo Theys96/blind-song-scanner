@@ -7,7 +7,11 @@ interface HeaderProps {
   loggedIn: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onLogoClick, small }) => (
+export const Header: React.FC<HeaderProps> = ({
+  onLogoClick,
+  small,
+  loggedIn,
+}) => (
   <div className="flex flex-col items-center mb-12">
     <h1
       className="text-[#1DB954] text-4xl font-bold text-center cursor-pointer hover:scale-105 transition-transform"
@@ -27,11 +31,13 @@ export const Header: React.FC<HeaderProps> = ({ onLogoClick, small }) => (
         <p className="text-gray-400 mt-2 text-center">
           Scan a Spotify song link QR code. Play the song without revealing it.
         </p>
-        <p className="text-orange-500 w-[500px] mt-2 text-center">
-          Please note that this is a demo product which can only be used by
-          registered demo Spotify users, or by hosting the application yourself
-          with your own Spotify developer client credentials.
-        </p>
+        {loggedIn && (
+          <p className="text-orange-500 w-[500px] mt-2 text-center">
+            Please note that this is a demo product which can only be used by
+            registered demo Spotify users, or by hosting the application with
+            your own Spotify developer client credentials.
+          </p>
+        )}
       </div>
     )}
   </div>
