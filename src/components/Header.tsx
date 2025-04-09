@@ -4,6 +4,7 @@ import spotifyLogo from "../assets/img/Spotify_Full_Logo_RGB_Green.png";
 interface HeaderProps {
   onLogoClick: () => void;
   small: boolean;
+  loggedIn: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({ onLogoClick, small }) => (
@@ -25,6 +26,11 @@ export const Header: React.FC<HeaderProps> = ({ onLogoClick, small }) => (
         <img src={spotifyLogo} alt="Spotify Logo" className="w-44 mb-4" />
         <p className="text-gray-400 mt-2 text-center">
           Scan a Spotify song link QR code. Play the song without revealing it.
+        </p>
+        <p className="text-orange-500 w-[500px] mt-2 text-center">
+          Please note that this is a demo product which can only be used by
+          registered demo Spotify users, or by hosting the application yourself
+          with your own Spotify developer client credentials.
         </p>
       </div>
     )}

@@ -58,6 +58,7 @@ function App() {
             setResetTrigger((prev) => prev + 1);
           }}
           small={showSmallHeader}
+          loggedIn={!!accessToken}
         />
         {!isLoading && !accessToken ? <SpotifyLogin /> : null}
         {accessToken && isSpotifySDKReady ? (
