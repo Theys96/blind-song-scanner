@@ -24,7 +24,7 @@ To install and start this React app locally, clone the repository and run:
 
 ```
 npm install
-npm run start
+npm run dev
 ```
 
 To get the Spotify log-in to work, create a client in the [Spotify for Developers dashboard](https://developer.spotify.com)
